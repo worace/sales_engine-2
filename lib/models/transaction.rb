@@ -15,4 +15,8 @@ class Transaction < Model
   def searchable_attributes
     ["invoice_id"]
   end
+
+  def successful?
+    result == "success"
+  end
 end

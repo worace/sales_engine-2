@@ -18,6 +18,10 @@ class InvoiceItemRepository < Repository
     indices["item_id"][id].first
   end
 
+  def find_all_by_item_id(id)
+    indices["item_id"].fetch(id, [])
+  end
+
   def find_all_by_quantity(quantity)
     indices["quantity"][quantity]
   end

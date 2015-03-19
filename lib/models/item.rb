@@ -16,4 +16,20 @@ class Item < Model
   def unit_price
     BigDecimal.new(data["unit_price"])/100
   end
+
+  def invoice_items
+    engine.invoice_item_repository.find_all_by_item_id(id)
+  end
+
+  def invoices
+    invoice_items.map(&:invoice)
+  end
+
+  def merchant
+    engine.merchant_repository.find_by_id(merchant_id)
+  end
+
+  def revenue
+    invoice_items.select(&:successful?).reduce(0) { |s,ii| s + ii.revenue }
+  end
 end

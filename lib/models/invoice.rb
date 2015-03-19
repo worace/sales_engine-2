@@ -34,4 +34,8 @@ class Invoice < Model
                                          "credit_card_expiration_date" => params[:credit_card_expiration_date],
                                          "result" => params[:result])
   end
+
+  def successful?
+    transactions.any?(&:successful?)
+  end
 end

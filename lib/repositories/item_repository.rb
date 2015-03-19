@@ -10,6 +10,10 @@ class ItemRepository < Repository
     Item
   end
 
+  def find_by_name(name)
+    indices["name"][name].first
+  end
+
   def find_by_id(id)
     indices["id"][id].first
   end
@@ -20,5 +24,9 @@ class ItemRepository < Repository
 
   def find_all_by_name(name)
     indices["name"].fetch(name,[])
+  end
+
+  def most_revenue(n)
+    entries.sort_by { |i| -i.revenue }.first(n)
   end
 end
