@@ -25,4 +25,17 @@ class InvoiceItemRepository < Repository
   def find_all_by_invoice_id(id)
     indices["invoice_id"][id]
   end
+
+  def create(params)
+    ii = InvoiceItem.new({"item_id" => params[:item].id,
+                          "invoice_id" => params[:invoice].id,
+                          "quantity" => params[:quantity],
+                          "unit_price" => params[:item].unit_price,
+                          "id" => (entries.last.id + 1),
+                          "created_at" => Time.now,
+                          "updated_at" => Time.now}, engine)
+    entries << ii
+    index_entry(ii)
+    ii
+  end
 end

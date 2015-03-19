@@ -18,6 +18,10 @@ class Repository
     indices[index_name][key] << record
   end
 
+  def index_entry(entry)
+    entry.searchable_attributes.each { |a| index(a,entry.send(a),entry) }
+  end
+
   def indices
     @indices ||= {}
   end
@@ -35,10 +39,7 @@ class Repository
     headers = rows.shift
     rows.map do |r|
       m = model.new(Hash[headers.zip(r)], engine)
-      #if self.class.name == "InvoiceRepository"
-        #binding.pry
-      #end
-      m.searchable_attributes.each { |a| index(a,m.send(a),m) }
+      index_entry(m)
       m
     end
   end

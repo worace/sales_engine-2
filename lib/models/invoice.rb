@@ -23,4 +23,8 @@ class Invoice < Model
   def transactions
     engine.transaction_repository.find_all_by_invoice_id(id)
   end
+
+  def customer
+    engine.customer_repository.find_by_id(customer_id)
+  end
 end
