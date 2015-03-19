@@ -18,7 +18,9 @@ class TransactionRepository < Repository
     t = Transaction.new({"invoice_id" => params["invoice"].id,
                         "credit_card_expiration_date" => params["credit_card_expiration_date"],
                         "credit_card_number" => params["credit_card_number"],
-                        "result" => params["result"]},engine)
+                        "result" => params["result"],
+                        "created_at" => Time.now.to_s,
+                        "updated_at" => Time.now.to_s},engine)
 
     entries << t
     index_entry(t)

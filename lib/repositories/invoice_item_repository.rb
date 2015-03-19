@@ -36,8 +36,8 @@ class InvoiceItemRepository < Repository
                           "quantity" => params[:quantity],
                           "unit_price" => params[:item].unit_price,
                           "id" => (entries.last.id + 1),
-                          "created_at" => Time.now,
-                          "updated_at" => Time.now}, engine)
+                          "created_at" => Time.now.to_s,
+                          "updated_at" => Time.now.to_s}, engine)
     entries << ii
     index_entry(ii)
     ii

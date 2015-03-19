@@ -34,8 +34,8 @@ class InvoiceRepository < Repository
     i = Invoice.new({"customer_id" => params[:customer].id,
                     "merchant_id" => params[:merchant].id,
                     "id" => (entries.last.id + 1),
-                    "created_at" => Time.now,
-                    "updated_at" => Time.now}, engine)
+                    "created_at" => Time.now.to_s,
+                    "updated_at" => Time.now.to_s}, engine)
     entries << i
     index_entry(i)
     params[:items].each do |item|

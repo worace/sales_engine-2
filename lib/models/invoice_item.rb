@@ -26,6 +26,6 @@ class InvoiceItem < Model
   end
 
   def revenue
-    quantity * unit_price
+    quantity * unit_price/100
   end
 end

@@ -38,4 +38,12 @@ class Invoice < Model
   def successful?
     transactions.any?(&:successful?)
   end
+
+  def revenue
+    invoice_items.reduce(0) {|s,ii| s + ii.revenue}
+  end
+
+  def date
+    Date.parse(created_at)
+  end
 end
