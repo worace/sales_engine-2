@@ -1,5 +1,5 @@
 require "csv"
-require_relative "repository"
+Dir.glob(File.join(__dir__, "repositories", "*")) {|file| require file}
 
 class SalesEngine
   REPOSITORIES = {:merchant_repository => MerchantRepository,
@@ -17,7 +17,8 @@ class SalesEngine
   def startup
     @repositories = REPOSITORIES.reduce({}) do |car, repo|
                       repo_name, repo_class = repo
-                      car[repo_name] = repo_class.new(root_dir)
+                      car[repo_name] = repo_class.new(root_dir, self)
+                      car[repo_name].entries
                       car
                     end
   end
