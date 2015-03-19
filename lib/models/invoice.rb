@@ -5,7 +5,7 @@ class Invoice < Model
   data_attrs "created_at", "updated_at", "status"
 
   def searchable_attributes
-    ["id", "customer_id", "status"]
+    ["id", "customer_id", "status", "merchant_id"]
   end
 
   def merchant

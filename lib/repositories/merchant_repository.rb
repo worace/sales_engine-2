@@ -10,6 +10,14 @@ class MerchantRepository < Repository
     indices["id"][id].first
   end
 
+  def find_by_name(name)
+    find_all_by_name(name).first
+  end
+
+  def find_all_by_name(name)
+    indices["name"].fetch(name, [])
+  end
+
   def model
     Merchant
   end

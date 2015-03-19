@@ -26,6 +26,10 @@ class ItemRepository < Repository
     indices["name"].fetch(name,[])
   end
 
+  def find_all_by_merchant_id(id)
+    indices["merchant_id"].fetch(id,[])
+  end
+
   def most_revenue(n)
     entries.sort_by { |i| -i.revenue }.first(n)
   end
