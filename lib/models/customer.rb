@@ -11,4 +11,12 @@ class Customer < Model
   def invoices
     engine.invoice_repository.find_all_by_customer_id(id)
   end
+
+  def transactions
+    invoices.flat_map(&:transactions)
+  end
+
+  def favorite_merchant
+    transactions.group_by(&:merchant).max_by { |merchant, transactions| transactions.count }.first
+  end
 end

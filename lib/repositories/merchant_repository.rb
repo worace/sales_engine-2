@@ -6,6 +6,10 @@ class MerchantRepository < Repository
     "merchants.csv"
   end
 
+  def find_by_id(id)
+    indices["id"][id].first
+  end
+
   def model
     Merchant
   end

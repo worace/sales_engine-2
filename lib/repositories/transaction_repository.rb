@@ -9,4 +9,8 @@ class TransactionRepository < Repository
   def model
     Transaction
   end
+
+  def find_all_by_invoice_id(id)
+    indices["invoice_id"][id]
+  end
 end
