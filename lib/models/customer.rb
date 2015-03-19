@@ -17,6 +17,8 @@ class Customer < Model
   end
 
   def favorite_merchant
-    transactions.group_by(&:merchant).max_by { |merchant, transactions| transactions.count }.first
+    transactions.group_by(&:merchant).max_by do |merchant, transactions|
+      transactions.count
+    end.first
   end
 end

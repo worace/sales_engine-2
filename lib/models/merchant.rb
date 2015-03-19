@@ -25,7 +25,9 @@ class Merchant < Model
   end
 
   def rev_by_date(date)
-    invoices.group_by(&:date)[date].select(&:successful?).map(&:revenue).reduce(:+)
+    invoices.group_by(&:date)[date].select do |i|
+      i.successful?
+    end.map(&:revenue).reduce(:+)
   end
 
   def all_revenue
@@ -33,11 +35,15 @@ class Merchant < Model
   end
 
   def quantity_sold
-    invoices.select(&:successful?).flat_map(&:invoice_items).map(&:quantity).reduce(:+)
+    invoices.select(&:successful?).flat_map do |i|
+      i.invoice_items
+    end.map(&:quantity).reduce(:+)
   end
 
   def favorite_customer
-    cust_id = invoices.select(&:successful?).group_by(&:customer_id).max_by do |id,invoices|
+    cust_id = invoices.select(&:successful?).group_by do |i|
+      i.customer_id
+    end.max_by do |id,invoices|
                 invoices.count
               end.first
     engine.customer_repository.find_by_id(cust_id)

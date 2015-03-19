@@ -29,10 +29,13 @@ class Invoice < Model
   end
 
   def charge(params)
-    engine.transaction_repository.create("invoice" => self,
-                                         "credit_card_number" => params[:credit_card_number],
-                                         "credit_card_expiration_date" => params[:credit_card_expiration_date],
-                                         "result" => params[:result])
+    t_params = {
+      "invoice" => self,
+      "credit_card_number" => params[:credit_card_number],
+      "credit_card_expiration_date" => params[:credit_card_expiration_date],
+      "result" => params[:result]
+    }
+    engine.transaction_repository.create(t_params)
   end
 
   def successful?
