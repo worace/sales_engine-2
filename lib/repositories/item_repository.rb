@@ -29,4 +29,8 @@ class ItemRepository < Repository
   def most_revenue(n)
     entries.sort_by { |i| -i.revenue }.first(n)
   end
+
+  def most_items(n)
+    entries.sort_by { |i| -i.quantity_sold }.first(n)
+  end
 end

@@ -32,4 +32,16 @@ class Item < Model
   def revenue
     invoice_items.select(&:successful?).reduce(0) { |s,ii| s + ii.revenue }
   end
+
+  def quantity_sold
+    invoice_items.select(&:successful?).reduce(0) { |s,ii| s + ii.quantity }
+  end
+
+  def best_day
+    invoice_items.select(&:successful?).group_by do |ii|
+      Date.parse(ii.invoice.created_at)
+    end.max_by do |date, iis|
+      iis.count
+    end.first
+  end
 end
