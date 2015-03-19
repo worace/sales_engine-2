@@ -1,5 +1,10 @@
 require_relative "../model"
 
 class Item < Model
-  data_attrs "id", "created_at", "updated_at", "name", "description", "unit_price", "merchant_id"
+  numeric_attrs "id", "merchant_id"
+  data_attrs "created_at", "updated_at", "name", "description", "unit_price"
+
+  def searchable_attributes
+    ["id", "merchant_id"]
+  end
 end

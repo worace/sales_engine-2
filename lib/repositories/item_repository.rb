@@ -9,4 +9,8 @@ class ItemRepository < Repository
   def model
     Item
   end
+
+  def find_by_id(id)
+    indices["id"][id].first
+  end
 end
