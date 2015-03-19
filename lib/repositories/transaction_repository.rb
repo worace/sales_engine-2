@@ -10,8 +10,20 @@ class TransactionRepository < Repository
     Transaction
   end
 
+  def find_by_id(id)
+    indices["id"][id].first
+  end
+
   def find_all_by_invoice_id(id)
     indices["invoice_id"].fetch(id, [])
+  end
+
+  def find_all_by_result(res)
+    indices["result"].fetch(res, [])
+  end
+
+  def find_by_credit_card_number(num)
+    indices["credit_card_number"][num].first
   end
 
   def create(params)

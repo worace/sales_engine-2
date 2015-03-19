@@ -13,7 +13,7 @@ class Transaction < Model
   end
 
   def searchable_attributes
-    ["invoice_id"]
+    ["id", "invoice_id", "credit_card_number", "result"]
   end
 
   def successful?

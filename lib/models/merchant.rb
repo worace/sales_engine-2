@@ -35,4 +35,15 @@ class Merchant < Model
   def quantity_sold
     invoices.select(&:successful?).flat_map(&:invoice_items).map(&:quantity).reduce(:+)
   end
+
+  def favorite_customer
+    cust_id = invoices.select(&:successful?).group_by(&:customer_id).max_by do |id,invoices|
+                invoices.count
+              end.first
+    engine.customer_repository.find_by_id(cust_id)
+  end
+
+  def customers_with_pending_invoices
+    invoices.reject(&:successful?).map(&:customer)
+  end
 end
