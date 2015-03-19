@@ -11,4 +11,8 @@ class InvoiceItem < Model
   def item
     engine.item_repository.find_by_id(item_id)
   end
+
+  def invoice
+    engine.invoice_repository.find_by_id(invoice_id)
+  end
 end

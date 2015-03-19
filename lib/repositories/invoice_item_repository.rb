@@ -21,4 +21,8 @@ class InvoiceItemRepository < Repository
   def find_all_by_quantity(quantity)
     indices["quantity"][quantity]
   end
+
+  def find_all_by_invoice_id(id)
+    indices["invoice_id"][id]
+  end
 end

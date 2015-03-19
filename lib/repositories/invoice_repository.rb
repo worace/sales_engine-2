@@ -17,4 +17,12 @@ class InvoiceRepository < Repository
   def find_all_by_customer_id(cust_id)
     indices["customer_id"][cust_id]
   end
+
+  def find_by_status(status)
+    indices["status"].fetch(status, []).first
+  end
+
+  def find_all_by_status(status)
+    indices["status"][status]
+  end
 end
